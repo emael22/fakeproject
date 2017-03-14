@@ -59,12 +59,6 @@ public class MainActivityTest {
     }
 
     @Test
-    public void restoreStateFromSharedPreferences() {
-        // TODO
-    }
-
-
-    @Test
     public void turnOnUpdateBulbState() {
         Spoon.screenshot(mActivityTestRule.getActivity(), "before-turn-on");
         MainScenario.turnBulbOn();

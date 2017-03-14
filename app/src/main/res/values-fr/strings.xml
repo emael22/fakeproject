@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Faux projet</string>
+    <string name="turn_on">Allumer</string>
+    <string name="turn_off">Eteindre</string>
+    <string name="bulb_on">Allumée</string>
+    <string name="bulb_off">Éteinte</string>
+    <string name="change_color">Changer de couleur</string>
+    <string name="voltage_down">Intensité -</string>
+    <string name="voltage_up">Intensité +</string>
+</resources>

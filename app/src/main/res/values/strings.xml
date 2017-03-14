@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">fake project</string>
+    <string name="turn_on">Turn On</string>
+    <string name="turn_off">Turn Off</string>
+    <string name="bulb_on">Turned On</string>
+    <string name="bulb_off">Turned Off</string>
+    <string name="change_color">Change color</string>
+    <string name="voltage_up">More Energy</string>
+    <string name="voltage_down">Less energy</string>
+
+
+</resources>

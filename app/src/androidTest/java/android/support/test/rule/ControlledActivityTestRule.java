@@ -22,6 +22,7 @@ public class ControlledActivityTestRule<T extends Activity> extends ActivityTest
     public void relaunchActivity() {
         finishActivity();
         launchActivity();
+        //lalalal
     }
 
     public void launchActivity() {

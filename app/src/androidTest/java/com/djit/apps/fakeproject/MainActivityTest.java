@@ -4,7 +4,6 @@ package com.djit.apps.fakeproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
-import android.support.test.rule.ControlledActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 

@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putBoolean("bulb_state_on", lightBulb.isTurnedOn());
         editor.putInt("color_pref", lightBulb.getColor());
+        editor.putInt("voltage_value", energyPlant.getVoltage());
         editor.apply();
     }
 
@@ -124,8 +125,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         int lightBulbColor = sharedPref.getInt("color_pref", ColoredLightBulb.DEFAULT_COLOR);
         boolean bulbStateOn = sharedPref.getBoolean("bulb_state_on", ColoredLightBulb.DEFAULT_STATE_ON);
+        int voltage = sharedPref.getInt("voltage_value", ColoredLightBulb.MIN_VOLTAGE);
 
-        return new ColoredLightBulb(colorGenerator, energyPlant, lightBulbColor, bulbStateOn);
+        return new ColoredLightBulb(colorGenerator, energyPlant, lightBulbColor, bulbStateOn, voltage);
     }
 
     public int voltageUp() {

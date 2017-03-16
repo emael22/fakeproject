@@ -42,7 +42,7 @@ public class ColoredLightBulb {
      * <p>
      * <b>Note:</b> By default the bulb is turned off.
      */
-    public ColoredLightBulb(ColorGenerator colorGenerator, EnergyPlant energyPlant) {
+    public ColoredLightBulb(ColorGenerator colorGenerator, EnergyPlant energyPlant, int lightBulbColor, boolean bulbStateOn, int voltage) {
         this(colorGenerator, energyPlant, DEFAULT_COLOR, false);
     }
 

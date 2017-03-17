@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnVoltageDown.setOnClickListener(this);
 
         btnTurnOn.setText(R.string.bulb_on);
-        //on est al
 
         energyPlant = new ColoredLightBulb.EnergyPlant() {
             int voltage = ColoredLightBulb.MIN_VOLTAGE;

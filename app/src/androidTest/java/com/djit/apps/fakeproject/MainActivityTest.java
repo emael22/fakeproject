@@ -37,9 +37,6 @@ public class MainActivityTest {
     @Before
     public void before() {
         clearSharedPreferences();
-        ColoredLightBulb lightbulb = new ColoredLightBulb(ColoredLightBulb.ColorGenerator colorGenerator,
-                ColoredLightBulb.EnergyPlant energyPlant);
-
     }
 
     @After
@@ -121,9 +118,20 @@ public class MainActivityTest {
 
     @Test
     public void  newVoltageView() {
-        String newVoltage = Integer.toString(energyPlant.getVoltage());
+        String newVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE + 1);
         onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
         onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(newVoltage)));
+    }
+
+    @Test
+    public void  disableVoltageUp() {
+        Spoon.screenshot(mActivityTestRule.getActivity(), "before-looping");
+        int loopValue = ColoredLightBulb.MAX_VOLTAGE - ColoredLightBulb.MIN_VOLTAGE;
+        for (int i = 0; i < loopValue; i++) {
+            onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
+        }
+        onView(withId(R.id.main_activity_btn_voltage_up)).check(matches(not(isEnabled())));
+        Spoon.screenshot(mActivityTestRule.getActivity(), "after-looping");
     }
 
 }

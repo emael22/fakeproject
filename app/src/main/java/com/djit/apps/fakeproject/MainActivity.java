@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void setVoltage(int newVoltage) {
                 voltage = newVoltage;
+                synchronizeLightBulbState(lightBulb);
             }
 
         };
@@ -100,13 +101,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tvBubbleState.setText(R.string.bulb_off);
             btnTurnOff.setEnabled(false);
             btnTurnOn.setEnabled(true);
-
-            if (energyPlant.getVoltage() == ColoredLightBulb.MIN_VOLTAGE) {
-                btnVoltageDown.setEnabled(false);
-            } else if (energyPlant.getVoltage() == ColoredLightBulb.MAX_VOLTAGE) {
-                btnVoltageUp.setEnabled(true);
-            }
         }
+
+        boolean isBtnDownEnabled = energyPlant.getVoltage() > ColoredLightBulb.MIN_VOLTAGE;
+        btnVoltageDown.setEnabled(isBtnDownEnabled);
+
+        boolean isBtnUpEnabled = energyPlant.getVoltage() < ColoredLightBulb.MAX_VOLTAGE;
+        btnVoltageUp.setEnabled(isBtnUpEnabled);
     }
 
 

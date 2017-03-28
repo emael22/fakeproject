@@ -142,7 +142,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = v.getId();
         switch (id) {
             case R.id.main_activity_btn_turn_on:
-
                 lightBulb.turnOn();
                 break;
 

@@ -19,6 +19,7 @@ import org.junit.runner.RunWith;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
@@ -31,9 +32,14 @@ public class MainActivityTest {
     @Rule
     public ControlledActivityTestRule<MainActivity> mActivityTestRule = new ControlledActivityTestRule<>(MainActivity.class);
 
+
+
     @Before
     public void before() {
         clearSharedPreferences();
+        ColoredLightBulb lightbulb = new ColoredLightBulb(ColoredLightBulb.ColorGenerator colorGenerator,
+                ColoredLightBulb.EnergyPlant energyPlant);
+
     }
 
     @After
@@ -100,4 +106,24 @@ public class MainActivityTest {
         onView(withId(R.id.main_activity_btn_turn_on)).check(matches(isEnabled()));
         Spoon.screenshot(mActivityTestRule.getActivity(), "after-turn-on");
     }
+
+    @Test
+    public void  btnVoltageUpEnabled() {
+        onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
+        onView(withId(R.id.main_activity_btn_voltage_up)).check(matches(isEnabled()));
+    }
+
+    @Test
+    public void  defaultVoltageView() {
+        String defaultVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE);
+        onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(defaultVoltage)));
+    }
+
+    @Test
+    public void  newVoltageView() {
+        String newVoltage = Integer.toString(energyPlant.getVoltage());
+        onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
+        onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(newVoltage)));
+    }
+
 }

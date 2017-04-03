@@ -33,7 +33,6 @@ public class MainActivityTest {
     public ControlledActivityTestRule<MainActivity> mActivityTestRule = new ControlledActivityTestRule<>(MainActivity.class);
 
 
-
     @Before
     public void before() {
         clearSharedPreferences();
@@ -105,26 +104,31 @@ public class MainActivityTest {
     }
 
     @Test
-    public void  btnVoltageUpEnabled() {
+    public void btnVoltageUpEnabled() {
         onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
         onView(withId(R.id.main_activity_btn_voltage_up)).check(matches(isEnabled()));
     }
 
     @Test
-    public void  defaultVoltageView() {
+    public void btnVoltageDownDisabled() {
+        onView(withId(R.id.main_activity_btn_voltage_down)).check(matches(not(isEnabled())));
+    }
+
+    @Test
+    public void defaultVoltageView() {
         String defaultVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE);
         onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(defaultVoltage)));
     }
 
     @Test
-    public void  newVoltageView() {
-        String newVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE + 1);
+    public void newVoltageViewUp() {
+        String newVoltageUp = Integer.toString(ColoredLightBulb.MIN_VOLTAGE + 1);
         onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
-        onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(newVoltage)));
+        onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(newVoltageUp)));
     }
 
     @Test
-    public void  disableVoltageUp() {
+    public void disableVoltageUp() {
         Spoon.screenshot(mActivityTestRule.getActivity(), "before-looping");
         int loopValue = ColoredLightBulb.MAX_VOLTAGE - ColoredLightBulb.MIN_VOLTAGE;
         for (int i = 0; i < loopValue; i++) {
@@ -132,6 +136,20 @@ public class MainActivityTest {
         }
         onView(withId(R.id.main_activity_btn_voltage_up)).check(matches(not(isEnabled())));
         Spoon.screenshot(mActivityTestRule.getActivity(), "after-looping");
+    }
+
+    @Test
+    public void enableVoltageDown() {
+        onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
+        onView(withId(R.id.main_activity_btn_voltage_down)).check(matches(isEnabled()));
+    }
+
+    @Test
+    public void newVoltageViewDown() {
+        String defaultVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE);
+        onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
+        onView(withId(R.id.main_activity_btn_voltage_down)).perform(click());
+        onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(defaultVoltage)));
     }
 
 }

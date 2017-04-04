@@ -4,6 +4,7 @@ package com.djit.apps.fakeproject;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
@@ -29,7 +30,7 @@ import static org.hamcrest.Matchers.not;
 public class MainActivityTest {
 
     @Rule
-    public ControlledActivityTestRule<MainActivity> mActivityTestRule = new ControlledActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainActivity> mActivityTestRule = new ActivityTestRule<>(MainActivity.class);
 
 
     @Before

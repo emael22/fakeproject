@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         lightBulb = restoreLightBulb(colorGenerator);
         lightBulb.setOnLightBulbStateChangeListener(this);
-        energyPlant.setOnVoltageChangeListener(this);
+        energyPlant.addListener(this);
 
         voltageView = (TextView) findViewById(R.id.activity_main_tv_bulb_voltage);
 
@@ -81,9 +81,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onVoltageChanged(EnergyPlant energyPlant) {
         synchronizeLightBulbState(lightBulb);
     }
-
-
-
 
     private void synchronizeLightBulbState(ColoredLightBulb lightBulb) {
         int lightBulbColor = lightBulb.getColor();

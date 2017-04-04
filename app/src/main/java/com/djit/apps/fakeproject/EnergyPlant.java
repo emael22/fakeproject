@@ -1,22 +1,27 @@
 package com.djit.apps.fakeproject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Malik Toudert on 03/04/2017.
  */
 
 public class EnergyPlant {
 
-    public int voltage;
+    private int voltage;
     public static final int MIN_VOLTAGE = 10;
-    public static final int MAX_VOLTAGE = 50;
+    public static final int MAX_VOLTAGE = 20;
+    private List<OnVoltageChangeListener> listeners;
 
 
     public EnergyPlant(int voltage) {
         this.voltage = voltage;
+        listeners = new ArrayList<>();
     }
 
     public EnergyPlant() {
-
+        listeners = new ArrayList<>();
     }
 
     public int getVoltage() {
@@ -24,15 +29,22 @@ public class EnergyPlant {
     }
 
     public void setVoltage(int newVoltage) {
-        voltage = newVoltage;
-        notifyStateChange();
+        if (newVoltage < MIN_VOLTAGE) {
+            throw new IllegalStateException("Too small voltage. Must be >= "
+                    + MIN_VOLTAGE + " Found: " + newVoltage);
+        }
 
+        voltage = newVoltage;
+
+        notifyStateChange();
     }
 
-    private OnVoltageChangeListener listener;
+    public void addListener(OnVoltageChangeListener listener) {
+        listeners.add(listener);
+    }
 
-    public void setOnVoltageChangeListener(OnVoltageChangeListener listener) {
-        this.listener = listener;
+    public void removeListener(OnVoltageChangeListener listener) {
+        listeners.remove(listener);
     }
 
     public interface OnVoltageChangeListener {
@@ -41,8 +53,8 @@ public class EnergyPlant {
     }
 
     private void notifyStateChange() {
-        if (listener != null) {
-            listener.onVoltageChanged(this);
+        for (int i = 0; i < listeners.size(); i++) {
+            listeners.get(i).onVoltageChanged(this);
         }
     }
 }

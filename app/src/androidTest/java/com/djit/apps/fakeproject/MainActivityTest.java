@@ -115,13 +115,13 @@ public class MainActivityTest {
 
     @Test
     public void defaultVoltageView() {
-        String defaultVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE);
+        String defaultVoltage = Integer.toString(EnergyPlant.MIN_VOLTAGE);
         onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(defaultVoltage)));
     }
 
     @Test
     public void newVoltageViewUp() {
-        String newVoltageUp = Integer.toString(ColoredLightBulb.MIN_VOLTAGE + 1);
+        String newVoltageUp = Integer.toString(EnergyPlant.MIN_VOLTAGE + 1);
         onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
         onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(newVoltageUp)));
     }
@@ -129,7 +129,7 @@ public class MainActivityTest {
     @Test
     public void disableVoltageUp() {
         Spoon.screenshot(mActivityTestRule.getActivity(), "before-looping");
-        int loopValue = ColoredLightBulb.MAX_VOLTAGE - ColoredLightBulb.MIN_VOLTAGE;
+        int loopValue = EnergyPlant.MAX_VOLTAGE - EnergyPlant.MIN_VOLTAGE;
         for (int i = 0; i < loopValue; i++) {
             onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
         }
@@ -145,7 +145,7 @@ public class MainActivityTest {
 
     @Test
     public void newVoltageViewDown() {
-        String defaultVoltage = Integer.toString(ColoredLightBulb.MIN_VOLTAGE);
+        String defaultVoltage = Integer.toString(EnergyPlant.MIN_VOLTAGE);
         onView(withId(R.id.main_activity_btn_voltage_up)).perform(click());
         onView(withId(R.id.main_activity_btn_voltage_down)).perform(click());
         onView(withId(R.id.activity_main_tv_bulb_voltage)).check(matches(withText(defaultVoltage)));

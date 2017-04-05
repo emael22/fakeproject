@@ -1,7 +1,5 @@
 package com.djit.apps.fakeproject;
 
-import android.widget.LinearLayout;
-
 /**
  * A light bulb that has a color.
  * <p>
@@ -10,7 +8,7 @@ import android.widget.LinearLayout;
  * <b>Note:</b> when turned off, the bulb does not save it's current color.
  * The current color is reset to {@link ColoredLightBulb#DEFAULT_COLOR}.
  */
-public class ColoredLightBulb {
+public class ColoredLightBulb extends EnergyPlant {
 
     /**
      * The default color of {@link ColoredLightBulb}.
@@ -18,8 +16,6 @@ public class ColoredLightBulb {
     public static final int DEFAULT_COLOR = 0xFFFFFF;
     public static final boolean DEFAULT_STATE_ON = false;
 
-    public static final int MIN_VOLTAGE = 10;
-    public static final int MAX_VOLTAGE = 50;
 
 
     private final ColorGenerator colorGenerator;
@@ -152,13 +148,6 @@ public class ColoredLightBulb {
         int getRandomColor();
 
     }
-
-
-    public interface EnergyPlant {
-        int getVoltage();
-        void setVoltage(int newVoltage);
-    }
-
 
 
 }

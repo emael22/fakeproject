@@ -144,10 +144,5 @@ public class ColoredLightBulb extends EnergyPlant {
         void onLightBulbStateChanged(ColoredLightBulb lightBulb);
     }
 
-    public interface ColorGenerator {
-        int getRandomColor();
-
-    }
-
 
 }

@@ -2,7 +2,6 @@ package com.djit.apps.fakeproject;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,16 +11,14 @@ import android.widget.TextView;
 
 import com.djit.apps.fakeproject.EnergyPlant.OnVoltageChangeListener;
 
-import java.util.Random;
-
 import static com.djit.apps.fakeproject.EnergyPlant.MAX_VOLTAGE;
 import static com.djit.apps.fakeproject.EnergyPlant.MIN_VOLTAGE;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        ColoredLightBulb.OnColoredLightBulbStateChangeListener, OnVoltageChangeListener {
+        ColoredLightBulb.OnColoredLightBulbStateChangeListener, OnVoltageChangeListener, ColorGenerator.OnAlphaChangeListener {
 
     public ColoredLightBulb lightBulb;
-    private ColoredLightBulb.ColorGenerator colorGenerator;
+    private ColorGenerator colorGenerator;
     private EnergyPlant energyPlant;
     private TextView tvBubbleState, colorView, voltageView;
     private Button btnTurnOn, btnTurnOff, btnVoltageUp, btnVoltageDown;
@@ -50,19 +47,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         energyPlant = new EnergyPlant();
         energyPlant.setVoltage(MIN_VOLTAGE);
 
+        colorGenerator = new ColorGenerator();
+        colorGenerator.getRandomColor();
 
-        colorGenerator = new ColoredLightBulb.ColorGenerator() {
-            private Random random = new Random();
-
-            @Override
-            public int getRandomColor() {
-                return Color.argb(255, random.nextInt(), random.nextInt(), random.nextInt());
-            }
-        };
 
         lightBulb = restoreLightBulb(colorGenerator);
         lightBulb.setOnLightBulbStateChangeListener(this);
         energyPlant.addListener(this);
+        colorGenerator.addListener(this);
 
         voltageView = (TextView) findViewById(R.id.activity_main_tv_bulb_voltage);
 
@@ -79,6 +71,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onVoltageChanged(EnergyPlant energyPlant) {
+        synchronizeLightBulbState(lightBulb);
+    }
+
+    @Override
+    public void onAlphaChanged(ColorGenerator colorGenerator){
         synchronizeLightBulbState(lightBulb);
     }
 
@@ -118,7 +115,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
-    private ColoredLightBulb restoreLightBulb(ColoredLightBulb.ColorGenerator colorGenerator) {
+    private ColoredLightBulb restoreLightBulb( ColorGenerator colorGenerator) {
         SharedPreferences sharedPref = getSharedPreferences("light_bulb_state", Context.MODE_PRIVATE);
 
         int lightBulbColor = sharedPref.getInt("color_pref", ColoredLightBulb.DEFAULT_COLOR);
@@ -133,6 +130,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public int voltageDown() {
         return energyPlant.getVoltage() - 1;
+    }
+
+    public int alphaUp(){
+        return colorGenerator.getAlpha() + 10;
+    }
+
+    public int alphaDown(){
+        return colorGenerator.getAlpha() - 10;
     }
 
 
@@ -150,13 +155,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_activity_btn_voltage_up:
                 energyPlant.setVoltage(voltageUp());
+                colorGenerator.setAlpha(alphaUp());
                 break;
 
             case R.id.main_activity_btn_voltage_down:
                 energyPlant.setVoltage(voltageDown());
+                colorGenerator.setAlpha(alphaDown());
                 break;
+
         }
 
     }
 
 }
+

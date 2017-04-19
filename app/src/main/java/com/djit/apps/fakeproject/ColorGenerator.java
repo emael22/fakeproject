@@ -4,49 +4,77 @@ import android.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 public class ColorGenerator {
 
-    private int alpha;
-    public static final int DEFAULT_ALPHA = 100;
-    private List<ColorGenerator.OnAlphaChangeListener> listeners;
+    public int blue;
+    public int green;
+    public int red;
+
+    public static final int DEFAULT_BLUE = 100;
+    public static final int DEFAULT_GREEN = 100;
+    public static final int DEFAULT_RED = 100;
+    private List<OnColorChangeListener> listeners;
 
     public ColorGenerator() {
         listeners = new ArrayList<>();
     }
 
 
-    public int getRandomColor() {
-        Random random = new Random();
-        alpha = DEFAULT_ALPHA;
-        return Color.argb(getAlpha(), random.nextInt(), random.nextInt(), random.nextInt());
+    public int getDefaultColor() {
+        red = DEFAULT_RED;
+        green = DEFAULT_GREEN;
+        blue = DEFAULT_BLUE;
+
+        return Color.argb(255, red, green, blue);
+    }
+
+    public int getNewColor(){
+        return Color.argb(255, red, green, blue);
     }
 
 
-    public int getAlpha() {
-        return alpha;
+
+    public int getRed() {
+        return red;
     }
 
-    public void setAlpha(int newAlpha) {
-        alpha = newAlpha;
+    public int getGreen() {
+        return green;
+    }
+
+    public int getBlue() {
+        return blue;
+    }
+
+    public void setRed(int newRed) {
+        red = newRed;
         notifyStateChange();
     }
 
-    public void addListener(OnAlphaChangeListener listener) {
+    public void setGreen(int newGreen) {
+        green = newGreen;
+        notifyStateChange();
+    }
+
+    public void setBlue(int newBlue) {
+        blue = newBlue;
+        notifyStateChange();
+    }
+
+    public void addListener(OnColorChangeListener listener) {
         listeners.add(listener);
     }
 
+    public interface OnColorChangeListener {
 
-    public interface OnAlphaChangeListener {
-
-        void onAlphaChanged(ColorGenerator colorGenerator);
+        void onColorChanged(ColorGenerator colorGenerator);
     }
 
     private void notifyStateChange() {
         for (int i = 0; i < listeners.size(); i++) {
-            listeners.get(i).onAlphaChanged(this);
+            listeners.get(i).onColorChanged(this);
         }
     }
 }

@@ -6,7 +6,14 @@
     <string name="bulb_off">Turned Off</string>
     <string name="change_color">Change color</string>
     <string name="voltage_up">More Energy</string>
-    <string name="voltage_down">Less energy</string>
+    <string name="voltage_down">Less Energy</string>
+    <string name="red_up">red +</string>
+    <string name="red_down">red -</string>
+    <string name="green_up">green +</string>
+    <string name="green_down">green -</string>
+    <string name="blue_up">blue +</string>
+    <string name="blue_down">blue -</string>
+
 
 
 </resources>

@@ -15,13 +15,13 @@ import static com.djit.apps.fakeproject.EnergyPlant.MAX_VOLTAGE;
 import static com.djit.apps.fakeproject.EnergyPlant.MIN_VOLTAGE;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
-        ColoredLightBulb.OnColoredLightBulbStateChangeListener, OnVoltageChangeListener, ColorGenerator.OnAlphaChangeListener {
+        ColoredLightBulb.OnColoredLightBulbStateChangeListener, OnVoltageChangeListener, ColorGenerator.OnColorChangeListener {
 
     public ColoredLightBulb lightBulb;
     private ColorGenerator colorGenerator;
     private EnergyPlant energyPlant;
     private TextView tvBubbleState, colorView, voltageView;
-    private Button btnTurnOn, btnTurnOff, btnVoltageUp, btnVoltageDown;
+    private Button btnTurnOn, btnTurnOff, btnVoltageUp, btnVoltageDown, btnRedUp, btnRedDown, btnGreenUp, btnGreenDown, BtnGreenDown, btnBlueUp, btnBlueDown;
     private LinearLayout layout;
 
     @Override
@@ -36,11 +36,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnTurnOff = (Button) findViewById(R.id.main_activity_btn_turn_off);
         btnVoltageUp = (Button) findViewById(R.id.main_activity_btn_voltage_up);
         btnVoltageDown = (Button) findViewById(R.id.main_activity_btn_voltage_down);
+        btnRedUp = (Button) findViewById(R.id.main_activity_red_up);
+        btnRedDown = (Button) findViewById(R.id.main_activity_red_down);
+        btnGreenUp = (Button) findViewById(R.id.main_activity_green_up);
+        btnGreenDown = (Button) findViewById(R.id.main_activity_green_down);
+        btnBlueUp = (Button) findViewById(R.id.main_activity_blue_up);
+        btnBlueDown = (Button) findViewById(R.id.main_activity_blue_down);
 
         btnTurnOn.setOnClickListener(this);
         btnTurnOff.setOnClickListener(this);
         btnVoltageUp.setOnClickListener(this);
         btnVoltageDown.setOnClickListener(this);
+        btnRedUp.setOnClickListener(this);
+        btnRedDown.setOnClickListener(this);
+        btnGreenUp.setOnClickListener(this);
+        btnGreenDown.setOnClickListener(this);
+        btnBlueUp.setOnClickListener(this);
+        btnBlueDown.setOnClickListener(this);
 
         btnTurnOn.setText(R.string.bulb_on);
 
@@ -48,8 +60,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         energyPlant.setVoltage(MIN_VOLTAGE);
 
         colorGenerator = new ColorGenerator();
-        colorGenerator.getRandomColor();
-
 
         lightBulb = restoreLightBulb(colorGenerator);
         lightBulb.setOnLightBulbStateChangeListener(this);
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    public void onAlphaChanged(ColorGenerator colorGenerator){
+    public void onColorChanged(ColorGenerator colorGenerator) {
         synchronizeLightBulbState(lightBulb);
     }
 
@@ -115,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.apply();
     }
 
-    private ColoredLightBulb restoreLightBulb( ColorGenerator colorGenerator) {
+    private ColoredLightBulb restoreLightBulb(ColorGenerator colorGenerator) {
         SharedPreferences sharedPref = getSharedPreferences("light_bulb_state", Context.MODE_PRIVATE);
 
         int lightBulbColor = sharedPref.getInt("color_pref", ColoredLightBulb.DEFAULT_COLOR);
@@ -132,12 +142,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return energyPlant.getVoltage() - 1;
     }
 
-    public int alphaUp(){
-        return colorGenerator.getAlpha() + 10;
+    public int redUp() {
+        return colorGenerator.getRed() + 10;
     }
 
-    public int alphaDown(){
-        return colorGenerator.getAlpha() - 10;
+    public int redDown() {
+        return colorGenerator.getRed() - 10;
+    }
+
+    public int greenDown() {
+        return colorGenerator.getGreen() - 10;
+    }
+
+    public int greenUp() {
+        return colorGenerator.getGreen() + 10;
+    }
+
+    public int blueUp() {
+        return colorGenerator.getBlue() + 10;
+    }
+
+    public int blueDown() {
+        return colorGenerator.getBlue() - 10;
     }
 
 
@@ -147,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.main_activity_btn_turn_on:
                 lightBulb.turnOn();
+                lightBulb.setColor(lightBulb.getColor());
                 break;
 
             case R.id.main_activity_btn_turn_off:
@@ -155,13 +182,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.main_activity_btn_voltage_up:
                 energyPlant.setVoltage(voltageUp());
-                colorGenerator.setAlpha(alphaUp());
                 break;
 
             case R.id.main_activity_btn_voltage_down:
                 energyPlant.setVoltage(voltageDown());
-                colorGenerator.setAlpha(alphaDown());
                 break;
+
+            case R.id.main_activity_red_up:
+                colorGenerator.setRed(redUp());
+                break;
+
+            case R.id.main_activity_red_down:
+                colorGenerator.setRed(redDown());
+                break;
+
+            case R.id.main_activity_green_up:
+                colorGenerator.setGreen(greenUp());
+                break;
+
+            case R.id.main_activity_green_down:
+                colorGenerator.setGreen(greenDown());
+                break;
+
+            case R.id.main_activity_blue_up:
+                colorGenerator.setBlue(blueUp());
+                break;
+
+            case R.id.main_activity_blue_down:
+                colorGenerator.setBlue(blueDown());
+                break;
+
 
         }
 

@@ -1,5 +1,10 @@
 package com.djit.apps.fakeproject;
 
+import android.graphics.Color;
+
+import static com.djit.apps.fakeproject.EnergyPlant.MAX_VOLTAGE;
+import static com.djit.apps.fakeproject.EnergyPlant.MIN_VOLTAGE;
+
 /**
  * A light bulb that has a color.
  * <p>
@@ -8,14 +13,13 @@ package com.djit.apps.fakeproject;
  * <b>Note:</b> when turned off, the bulb does not save it's current color.
  * The current color is reset to {@link ColoredLightBulb#DEFAULT_COLOR}.
  */
-public class ColoredLightBulb extends EnergyPlant {
+public class ColoredLightBulb extends ColorGenerator {
 
     /**
      * The default color of {@link ColoredLightBulb}.
      */
     public static final int DEFAULT_COLOR = 0xFFFFFF;
     public static final boolean DEFAULT_STATE_ON = false;
-
 
 
     private final ColorGenerator colorGenerator;
@@ -67,7 +71,7 @@ public class ColoredLightBulb extends EnergyPlant {
         }
 
         turnedOn = true;
-        setColor(colorGenerator.getRandomColor());
+        setColor(colorGenerator.getDefaultColor());
         notifyStateChange();
         return true;
     }
@@ -105,7 +109,7 @@ public class ColoredLightBulb extends EnergyPlant {
      * @return an int representing the current color.
      */
     public int getColor() {
-        return color;
+        return colorGenerator.getNewColor();
     }
 
     /**

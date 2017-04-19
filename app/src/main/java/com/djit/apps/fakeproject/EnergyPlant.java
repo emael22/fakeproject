@@ -3,9 +3,6 @@ package com.djit.apps.fakeproject;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Malik Toudert on 03/04/2017.
- */
 
 public class EnergyPlant {
 
@@ -35,7 +32,6 @@ public class EnergyPlant {
         }
 
         voltage = newVoltage;
-
         notifyStateChange();
     }
 

@@ -7,4 +7,10 @@
     <string name="change_color">Changer de couleur</string>
     <string name="voltage_down">Intensité -</string>
     <string name="voltage_up">Intensité +</string>
+    <string name="red_up">red +</string>
+    <string name="red_down">red -</string>
+    <string name="green_up">green +</string>
+    <string name="green_down">green -</string>
+    <string name="blue_up">blue +</string>
+    <string name="blue_down">blue -</string>
 </resources>

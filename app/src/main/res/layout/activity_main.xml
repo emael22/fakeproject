@@ -43,14 +43,50 @@
 
     <Button
         android:id="@+id/main_activity_btn_voltage_up"
-        android:layout_width="wrap_content"
+        android:layout_width="93dp"
         android:layout_height="wrap_content"
         android:text="@string/voltage_up" />
 
     <Button
         android:id="@+id/main_activity_btn_voltage_down"
-        android:layout_width="wrap_content"
+        android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:text="@string/voltage_down" />
+
+    <Button
+        android:id="@+id/main_activity_red_up"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/red_up" />
+
+    <Button
+        android:id="@+id/main_activity_red_down"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/red_down" />
+
+    <Button
+        android:id="@+id/main_activity_green_up"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/green_up" />
+
+    <Button
+        android:id="@+id/main_activity_green_down"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/green_down" />
+
+    <Button
+        android:id="@+id/main_activity_blue_up"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/blue_up" />
+
+    <Button
+        android:id="@+id/main_activity_blue_down"
+        android:layout_width="93dp"
+        android:layout_height="wrap_content"
+        android:text="@string/blue_down" />
 
 </LinearLayout>
